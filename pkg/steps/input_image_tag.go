@@ -3,6 +3,7 @@ package steps
 import (
 	"context"
 	"fmt"
+	"sigs.k8s.io/yaml"
 	"time"
 
 	"github.com/sirupsen/logrus"
@@ -85,7 +86,8 @@ func (s *inputImageTagStep) run(ctx context.Context) error {
 			},
 		},
 	}
-
+	myYaml, _ := yaml.Marshal(ist)
+	logrus.Infof("ist:\n%s", myYaml)
 	if err := s.client.Create(ctx, ist); err != nil && !kerrors.IsAlreadyExists(err) {
 		return fmt.Errorf("failed to create imagestreamtag for input image: %w", err)
 	}
