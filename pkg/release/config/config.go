@@ -2,27 +2,14 @@ package config
 
 import (
 	"github.com/openshift/ci-tools/pkg/api"
+	releasecontroller "github.com/openshift/release-controller/pkg/release-controller"
 )
 
 // Config is a subset of fields from the release controller's config
 type Config struct {
-	Name    string                `json:"name,omitempty"`
-	Publish Publish               `json:"publish"`
-	Verify  map[string]VerifyItem `json:"verify,omitempty"`
-}
-
-type Publish struct {
-	MirrorToOrigin MirrorToOrigin `json:"mirror-to-origin"`
-}
-
-type MirrorToOrigin struct {
-	ImageStreamRef ImageStreamRef `json:"imageStreamRef"`
-}
-
-type ImageStreamRef struct {
-	Namespace   string   `json:"namespace"`
-	Name        string   `json:"name"`
-	ExcludeTags []string `json:"excludeTags,omitempty"`
+	Name    string                                      `json:"name,omitempty"`
+	Publish map[string]releasecontroller.ReleasePublish `json:"publish"`
+	Verify  map[string]VerifyItem                       `json:"verify,omitempty"`
 }
 
 type Job struct {

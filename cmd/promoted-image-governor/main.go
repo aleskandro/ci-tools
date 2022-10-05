@@ -5,6 +5,7 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	releasecontroller "github.com/openshift/release-controller/pkg/release-controller"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -157,7 +158,7 @@ func addSchemes() error {
 	return nil
 }
 
-func tagsToDelete(ctx context.Context, client ctrlruntimeclient.Client, promotedTags []api.ImageStreamTagReference, toIgnore []*regexp.Regexp, imageStreamRefs []releaseconfig.ImageStreamRef) (map[api.ImageStreamTagReference]interface{}, map[ctrlruntimeclient.ObjectKey]interface{}, error) {
+func tagsToDelete(ctx context.Context, client ctrlruntimeclient.Client, promotedTags []api.ImageStreamTagReference, toIgnore []*regexp.Regexp, imageStreamRefs []releasecontroller.PublishStreamReference) (map[api.ImageStreamTagReference]interface{}, map[ctrlruntimeclient.ObjectKey]interface{}, error) {
 	imageStreamsWithPromotedTags := map[ctrlruntimeclient.ObjectKey]interface{}{}
 	for _, promotedTag := range promotedTags {
 		imageStreamsWithPromotedTags[ctrlruntimeclient.ObjectKey{Namespace: promotedTag.Namespace, Name: promotedTag.Name}] = nil
@@ -204,7 +205,7 @@ func tagsToDelete(ctx context.Context, client ctrlruntimeclient.Client, promoted
 	return tagsToCheck, imageStreamsWithPromotedTags, nil
 }
 
-func mirroredTagsByReleaseController(ctx context.Context, client ctrlruntimeclient.Client, refs []releaseconfig.ImageStreamRef) ([]api.ImageStreamTagReference, error) {
+func mirroredTagsByReleaseController(ctx context.Context, client ctrlruntimeclient.Client, refs []releasecontroller.PublishStreamReference) ([]api.ImageStreamTagReference, error) {
 	var ret []api.ImageStreamTagReference
 	for _, ref := range refs {
 		imageStream := &imagev1.ImageStream{}
@@ -238,7 +239,7 @@ type OpenshiftMappingConfig struct {
 // generateMappings generates the mappings to mirror the images
 // Those mappings will be stored in https://github.com/openshift/release/tree/master/core-services/image-mirroring/openshift
 // and then used by the periodic-image-mirroring-openshift job
-func generateMappings(promotedTags []api.ImageStreamTagReference, mappingConfig *OpenshiftMappingConfig, imageStreamRefs []releaseconfig.ImageStreamRef) (map[string]map[string]sets.String, error) {
+func generateMappings(promotedTags []api.ImageStreamTagReference, mappingConfig *OpenshiftMappingConfig, imageStreamRefs []releasecontroller.PublishStreamReference) (map[string]map[string]sets.String, error) {
 	mappings := map[string]map[string]sets.String{}
 	var errs []error
 	for _, tag := range promotedTags {
@@ -273,7 +274,7 @@ func generateMappings(promotedTags []api.ImageStreamTagReference, mappingConfig 
 
 // isMirroredFromOCP checks if the image is mirrored by the release controllers
 // See https://github.com/openshift/release/blob/0cb6f403581ac09a9112744332b504612a3b7267/core-services/release-controller/_releases/release-ocp-4.6-ci.json#L10 as an example
-func isMirroredFromOCP(tag api.ImageStreamTagReference, refs []releaseconfig.ImageStreamRef) bool {
+func isMirroredFromOCP(tag api.ImageStreamTagReference, refs []releasecontroller.PublishStreamReference) bool {
 	if tag.Namespace != "ocp" {
 		return false
 	}
@@ -382,7 +383,7 @@ func main() {
 		logrus.WithError(err).Fatal("failed to determine absolute release controller mirror config path")
 	}
 
-	var imageStreamRefs []releaseconfig.ImageStreamRef
+	var imageStreamRefs []releasecontroller.PublishStreamReference
 	if err := filepath.Walk(abs,
 		func(path string, info os.FileInfo, err error) error {
 			if err != nil {
@@ -400,15 +401,20 @@ func main() {
 					logrus.WithField("source-file", path).WithError(err).Error("Failed to unmarshal ReleaseControllerMirrorConfig")
 					return err
 				}
-				ref := c.Publish.MirrorToOrigin.ImageStreamRef
-				if ref.Namespace == "" {
-					logrus.WithField("source-file", path).Debug("publish.mirror-to-origin.imageStreamRef.namespace is empty")
-				}
-				if ref.Name == "" {
-					logrus.WithField("source-file", path).Debug("publish.mirror-to-origin.imageStreamRef.name is empty")
-				}
-				if ref.Namespace != "" && ref.Name != "" {
-					imageStreamRefs = append(imageStreamRefs, ref)
+				for _, publishType := range c.Publish {
+					switch {
+					case publishType.ImageStreamRef != nil:
+						ref := publishType.ImageStreamRef
+						if ref.Namespace == "" {
+							logrus.WithField("source-file", path).Debug("publish.mirror-to-origin.imageStreamRef.namespace is empty")
+						}
+						if ref.Name == "" {
+							logrus.WithField("source-file", path).Debug("publish.mirror-to-origin.imageStreamRef.name is empty")
+						}
+						if ref.Namespace != "" && ref.Name != "" {
+							imageStreamRefs = append(imageStreamRefs, *ref)
+						}
+					}
 				}
 			}
 			return nil
