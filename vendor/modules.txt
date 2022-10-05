@@ -143,8 +143,8 @@ github.com/anaskhan96/soup
 # github.com/andygrunwald/go-gerrit v0.0.0-20210709065208-9d38b0be0268
 ## explicit; go 1.15
 github.com/andygrunwald/go-gerrit
-# github.com/andygrunwald/go-jira v1.14.0
-## explicit; go 1.12
+# github.com/andygrunwald/go-jira v1.15.1
+## explicit; go 1.15
 github.com/andygrunwald/go-jira
 # github.com/aws/aws-sdk-go v1.37.22
 ## explicit; go 1.11
@@ -305,7 +305,7 @@ github.com/emirpasic/gods/lists/arraylist
 github.com/emirpasic/gods/trees
 github.com/emirpasic/gods/trees/binaryheap
 github.com/emirpasic/gods/utils
-# github.com/evanphx/json-patch v4.12.0+incompatible
+# github.com/evanphx/json-patch v5.6.0+incompatible
 ## explicit
 github.com/evanphx/json-patch
 # github.com/evanphx/json-patch/v5 v5.6.0
@@ -332,7 +332,7 @@ github.com/fvbommel/sortorder
 # github.com/getlantern/deepcopy v0.0.0-20160317154340-7f45deb8130a
 ## explicit
 github.com/getlantern/deepcopy
-# github.com/ghodss/yaml v1.0.0
+# github.com/ghodss/yaml v1.0.1-0.20190212211648-25d852aebe32
 ## explicit
 github.com/ghodss/yaml
 # github.com/go-asn1-ber/asn1-ber v1.5.1
@@ -427,13 +427,16 @@ github.com/gogo/protobuf/proto
 github.com/gogo/protobuf/sortkeys
 # github.com/golang-jwt/jwt v3.2.1+incompatible
 ## explicit
-github.com/golang-jwt/jwt
 # github.com/golang-jwt/jwt/v4 v4.3.0
 ## explicit; go 1.15
 github.com/golang-jwt/jwt/v4
 # github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da
 ## explicit
+github.com/golang/groupcache
+github.com/golang/groupcache/consistenthash
+github.com/golang/groupcache/groupcachepb
 github.com/golang/groupcache/lru
+github.com/golang/groupcache/singleflight
 # github.com/golang/mock v1.6.0
 ## explicit; go 1.11
 github.com/golang/mock/gomock
@@ -539,6 +542,7 @@ github.com/hashicorp/go-sockaddr
 github.com/hashicorp/go-version
 # github.com/hashicorp/golang-lru v0.5.4
 ## explicit; go 1.12
+github.com/hashicorp/golang-lru
 github.com/hashicorp/golang-lru/simplelru
 # github.com/hashicorp/hcl v1.0.0
 ## explicit
@@ -679,6 +683,7 @@ github.com/openshift/client-go/build/clientset/versioned/fake
 github.com/openshift/client-go/build/clientset/versioned/scheme
 github.com/openshift/client-go/build/clientset/versioned/typed/build/v1
 github.com/openshift/client-go/build/clientset/versioned/typed/build/v1/fake
+github.com/openshift/client-go/image/listers/image/v1
 github.com/openshift/client-go/project/clientset/versioned
 github.com/openshift/client-go/project/clientset/versioned/scheme
 github.com/openshift/client-go/project/clientset/versioned/typed/project/v1
@@ -714,7 +719,7 @@ github.com/openshift/imagebuilder/dockerfile/command
 github.com/openshift/imagebuilder/dockerfile/parser
 github.com/openshift/imagebuilder/signal
 github.com/openshift/imagebuilder/strslice
-# github.com/openshift/library-go v0.0.0-20200127110935-527e40ed17d9 => github.com/openshift/library-go v0.0.0-20210826121606-162472d92388
+# github.com/openshift/library-go v0.0.0-20220525173854-9b950a41acdc => github.com/openshift/library-go v0.0.0-20210826121606-162472d92388
 ## explicit; go 1.16
 github.com/openshift/library-go/pkg/crypto
 github.com/openshift/library-go/pkg/image/imageutil
@@ -725,6 +730,9 @@ github.com/openshift/library-go/pkg/image/reference
 ## explicit
 github.com/openshift/openshift-apiserver/pkg/image/apis/image
 github.com/openshift/openshift-apiserver/pkg/image/apis/image/docker10
+# github.com/openshift/release-controller v0.0.0-20220930153715-0ff6426d421f
+## explicit; go 1.18
+github.com/openshift/release-controller/pkg/release-controller
 # github.com/pelletier/go-toml v1.9.4
 ## explicit; go 1.12
 github.com/pelletier/go-toml
@@ -782,7 +790,7 @@ github.com/satori/go.uuid
 # github.com/sergi/go-diff v1.1.0
 ## explicit; go 1.12
 github.com/sergi/go-diff/diffmatchpatch
-# github.com/shurcooL/githubv4 v0.0.0-20210725200734-83ba7b4c9228
+# github.com/shurcooL/githubv4 v0.0.0-20220520033151-0b4e3294ff00
 ## explicit
 github.com/shurcooL/githubv4
 # github.com/shurcooL/graphql v0.0.0-20181231061246-d48a9a75455f
@@ -1508,6 +1516,9 @@ k8s.io/client-go/util/workqueue
 ## explicit; go 1.16
 k8s.io/component-base/config
 k8s.io/component-base/config/v1alpha1
+# k8s.io/klog v1.0.0
+## explicit; go 1.12
+k8s.io/klog
 # k8s.io/klog/v2 v2.70.0
 ## explicit; go 1.13
 k8s.io/klog/v2

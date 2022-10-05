@@ -29,12 +29,12 @@ require (
 	github.com/GoogleCloudPlatform/testgrid v0.0.123
 	github.com/PagerDuty/go-pagerduty v1.4.1
 	github.com/alecthomas/chroma v0.8.2-0.20201103103104-ab61726cdb54
-	github.com/andygrunwald/go-jira v1.14.0
+	github.com/andygrunwald/go-jira v1.15.1
 	github.com/blang/semver v3.5.1+incompatible
 	github.com/bombsimon/logrusr/v3 v3.0.0
 	github.com/docker/distribution v2.8.1+incompatible
 	github.com/getlantern/deepcopy v0.0.0-20160317154340-7f45deb8130a
-	github.com/ghodss/yaml v1.0.0
+	github.com/ghodss/yaml v1.0.1-0.20190212211648-25d852aebe32
 	github.com/go-ldap/ldap/v3 v3.4.1
 	github.com/golang/mock v1.6.0
 	github.com/google/go-cmp v0.5.8
@@ -54,8 +54,9 @@ require (
 	github.com/openshift/client-go v3.9.0+incompatible
 	github.com/openshift/hive/apis v0.0.0-20220914191453-366466c2d2ca
 	github.com/openshift/imagebuilder v1.1.1
-	github.com/openshift/library-go v0.0.0-20200127110935-527e40ed17d9
+	github.com/openshift/library-go v0.0.0-20220525173854-9b950a41acdc
 	github.com/openshift/openshift-apiserver v0.0.0-alpha.0
+	github.com/openshift/release-controller v0.0.0-20220930153715-0ff6426d421f
 	github.com/pkg/errors v0.9.1
 	github.com/pmezard/go-difflib v1.0.0
 	github.com/polyfloyd/go-errorlint v0.0.0-20210722154253-910bb7978349
@@ -114,7 +115,7 @@ require (
 	github.com/docker/go-connections v0.4.0 // indirect
 	github.com/docker/go-units v0.4.0 // indirect
 	github.com/docker/libtrust v0.0.0-20160708172513-aabc10ec26b7 // indirect
-	github.com/evanphx/json-patch v4.12.0+incompatible // indirect
+	github.com/evanphx/json-patch v5.6.0+incompatible // indirect
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/fatih/structs v1.1.0 // indirect
 	github.com/felixge/fgprof v0.9.1 // indirect
@@ -166,7 +167,7 @@ require (
 	github.com/pierrec/lz4 v2.2.6+incompatible // indirect
 	github.com/prometheus/procfs v0.7.3 // indirect
 	github.com/ryanuber/go-glob v1.0.0 // indirect
-	github.com/shurcooL/githubv4 v0.0.0-20210725200734-83ba7b4c9228
+	github.com/shurcooL/githubv4 v0.0.0-20220520033151-0b4e3294ff00
 	github.com/shurcooL/graphql v0.0.0-20181231061246-d48a9a75455f // indirect
 	github.com/spf13/cast v1.4.1 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
@@ -252,5 +253,6 @@ require (
 	go.uber.org/multierr v1.7.0 // indirect
 	go.uber.org/zap v1.19.1 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
+	k8s.io/klog v1.0.0 // indirect
 	sigs.k8s.io/json v0.0.0-20211208200746-9f7c6b3444d2 // indirect
 )
